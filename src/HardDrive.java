@@ -1,8 +1,8 @@
 public class HardDrive extends StorageDeviceStructure {
     private int size;
 
-    public HardDrive (String name, String UUID, int size) {
-        super(name, UUID);
+    public HardDrive (String name, String uuid, int size) {
+        super(name, uuid);
         this.size = size;
     }
 

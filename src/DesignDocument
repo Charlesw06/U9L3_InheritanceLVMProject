@@ -1,0 +1,29 @@
+LVM Runner Design Document -
+
+LVMRunner:
+    import ArrayList;
+    import Scanner;
+    import FileWriter;
+
+    main method
+     - runs the lvm program and interface
+     - Stores VGs, LVs, HardDrives, and PVs, in separate arrayLists
+
+    public void writeToFile (Object o)
+     - writes to certain file depending on type of data structure
+     - writes all information about the data structure in easily retrievable format
+
+    public HardDrive installDrive (String name, String size)
+     - creates drive depending on name, size, and randomly made UUID
+     - writes drive information into HardDriveSave using writeToFile method
+     - returns created HardDrive
+
+    public PV createPV (String name, HardDrive associatedDrive)
+     - creates PV depending on name, associatedDrive, and randomly made UUID
+     - writes PV information into PVSave using writeToFile method
+     - returns created PV
+
+    public VG createVG (String name, PV[] pvList, LV[] lvList)
+     - creates VG depending on name, pvList, lvList, and randomly made UUID
+     - writes VG information into VGSave using writeToFile method
+     - returns created VG

@@ -1,10 +1,10 @@
 public class StorageDeviceStructure {
     private String name;
-    private String UUID;
+    private String uuid;
 
-    public StorageDeviceStructure (String name, String UUID) {
+    public StorageDeviceStructure (String name, String uuid) {
         this.name = name;
-        this.UUID = UUID;
+        this.uuid = uuid;
     }
 
     public String getName() {
@@ -16,10 +16,10 @@ public class StorageDeviceStructure {
     }
 
     public String getUUID() {
-        return UUID;
+        return uuid;
     }
 
-    public void setUUID(String UUID) {
-        this.UUID = UUID;
+    public void setUUID(String uuid) {
+        this.uuid = uuid;
     }
 }

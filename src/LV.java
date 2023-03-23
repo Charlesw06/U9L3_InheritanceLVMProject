@@ -2,8 +2,8 @@ public class LV extends StorageDeviceStructure {
     private int size;
     private VG associatedVG;
 
-    public LV (String name, String UUID, int size, VG associatedVG) {
-        super(name, UUID);
+    public LV (String name, String uuid, int size, VG associatedVG) {
+        super(name, uuid);
         this.size = size;
         this.associatedVG = associatedVG;
     }

@@ -1,8 +1,8 @@
 public class PV extends StorageDeviceStructure {
     private HardDrive associatedDrive;
 
-    public PV (String name, String UUID, HardDrive associatedDrive) {
-        super(name, UUID);
+    public PV (String name, String uuid, HardDrive associatedDrive) {
+        super(name, uuid);
         this.associatedDrive = associatedDrive;
     }
 
