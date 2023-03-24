@@ -15,4 +15,8 @@ public class LV extends StorageDeviceStructure {
     public VG getAssociatedVG() {
         return associatedVG;
     }
+
+    public String toString() {
+        return super.toString() + " " + size + " " + associatedVG;
+    }
 }

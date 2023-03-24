@@ -22,4 +22,8 @@ public class StorageDeviceStructure {
     public void setUUID(String uuid) {
         this.uuid = uuid;
     }
+
+    public String toString() {
+        return name + " " + uuid;
+    }
 }

@@ -13,4 +13,8 @@ public class PV extends StorageDeviceStructure {
     public int getSize() {
         return associatedDrive.getSize();
     }
+
+    public String toString() {
+        return super.toString() + " " + associatedDrive;
+    }
 }
