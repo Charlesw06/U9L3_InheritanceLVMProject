@@ -1,18 +1,21 @@
-public class VG extends StorageDeviceStructure {
-    private PV[] pvList;
-    private LV[] lvList;
+import java.util.Arrays;
+import java.util.ArrayList;
 
-    public VG (String name, String uuid, PV[] pvList, LV[] lvList) {
+public class VG extends StorageDeviceStructure {
+    private ArrayList<PV> pvList;
+    private ArrayList<LV> lvList;
+
+    public VG (String name, String uuid, PV pv) {
         super(name, uuid);
-        this.pvList = pvList;
-        this.lvList = lvList;
+        this.pvList = new ArrayList<PV>(Arrays.asList(pv));
+        this.lvList = new ArrayList<LV>();
     }
 
-    public PV[] getPVList() {
+    public ArrayList<PV> getPVList() {
         return pvList;
     }
 
-    public LV[] getLVList() {
+    public ArrayList<LV> getLVList() {
         return lvList;
     }
 

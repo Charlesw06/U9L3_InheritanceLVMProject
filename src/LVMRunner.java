@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
+import static java.util.Arrays.asList;
 
 public class LVMRunner {
     public static void main(String[] args) {
@@ -18,17 +19,25 @@ public class LVMRunner {
             }
             else if (inputParts[0].equals("list-drives")) {
                 for (HardDrive drive : saver.getHardDriveList()) {
-                    System.out.println(drive.getName() + " [" + drive.getSize() + "] [" + drive.getUUID() + "]");
+                    System.out.println(drive.getName() + " [" + drive.getSize() + "G] [" + drive.getUUID() + "]");
                 }
             }
             else if (inputParts[0].equals("pvcreate")) {
-
+                createPV(inputParts[1], inputParts[2], saver);
             }
             else if (inputParts[0].equals("pvlist")) {
-
+                for (PV pv : saver.getPVList()) {
+                    System.out.print(pv.getName() + ": [" + pv.getAssociatedDrive().getSize() + "G] ");
+                    for (VG vg : saver.getVGList()) {
+                        if (asList(vg.getPVList()).contains(pv)) {
+                            System.out.print("[" + vg.getName() + "] ");
+                        }
+                    }
+                    System.out.println("[" + pv.getUUID() + "]");
+                }
             }
             else if (inputParts[0].equals("vgcreate")) {
-
+                createVG(inputParts[1], inputParts[2], saver);
             }
             else if (inputParts[0].equals("vgextend")) {
 
@@ -65,24 +74,68 @@ public class LVMRunner {
         }
     }
 
-    public static void installPV(String name, HardDrive drive, LVMStructureSaver saver) {
+    public static void createPV(String name, String driveName, LVMStructureSaver saver) {
         boolean notInstallable = false;
-        for (PV pv : saver.getPvList()) {
-            if (pv.getName().equals(name)) {notInstallable = true;}
-            if (pv.getAssociatedDrive() == drive) {notInstallable = true;}
+        for (PV pv : saver.getPVList()) {
+            if (pv.getName().equals(name)) {
+                System.out.println("PV " + name + " already exists");
+                notInstallable = true;
+            }
+            if (pv.getAssociatedDrive().getName().equals(driveName)) {
+                System.out.println("Hard drive " + driveName + " is associated with another PV");
+                notInstallable = true;
+            }
         }
-        if (!saver.getHardDriveList().contains(drive)) {notInstallable = true;}
+        String[] driveNames = new String[saver.getHardDriveList().size()];
+        for (int i = 0; i < saver.getHardDriveList().size(); i++) {
+            driveNames[i] = saver.getHardDriveList().get(i).getName();
+        }
+        if (!asList(driveNames).contains(driveName)) {
+            System.out.println("Hard drive " + driveName + " does not exist");
+            notInstallable = true;
+        }
         if (!notInstallable) {
             String uuid = (UUID.randomUUID()).toString();
-            PV pv = new PV(name, uuid, drive);
+            int index = asList(driveNames).indexOf(driveName);
+            PV pv = new PV(name, uuid, saver.getHardDriveList().get(index));
             saver.extendPVList(pv);
-            System.out.println("PV " + name + " installed");
-        }
-        else {
-
+            System.out.println(name + " created");
         }
     }
 
+    public static void createVG(String name, String pvName, LVMStructureSaver saver) {
+        boolean notInstallable = false;
+        String[] allPVNames = new String[saver.getPVList().size()];
+        for (int i = 0; i < saver.getPVList().size(); i++) {
+            allPVNames[i] = saver.getPVList().get(i).getName();
+        }
+        if (!asList(allPVNames).contains(pvName)) {
+            System.out.println("PV " + pvName + " does not exist");
+            notInstallable = true;
+        }
+        for (VG vg : saver.getVGList()) {
+            for (PV pv : vg.getPVList()) {
+                if (pv.getName().equals(pvName)) {
+                    System.out.println("PV " + pvName + " is part of another VG");
+                    notInstallable = true;
+                }
+            }
+        }
+        for (VG vg : saver.getVGList()) {
+            if (vg.getName().equals(name)) {
+                System.out.println("VG " + name + " already exists");
+                notInstallable = true;
+            }
+        }
+        if (!notInstallable) {
+            String uuid = (UUID.randomUUID()).toString();
+            int index = asList(allPVNames).indexOf(pvName);
+            VG vg = new VG(name, uuid, saver.getPVList().get(index));
+            saver.extendVGList(vg);
+            System.out.println(name  + " created");
+        }
+    }
 
+    public static void extendVG(String vgName, )
 
 }

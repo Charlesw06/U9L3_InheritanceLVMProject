@@ -13,11 +13,11 @@ public class LVMStructureSaver {
         vgList = new ArrayList<VG>();
     }
 
-    public ArrayList<LV> getLvList() {
+    public ArrayList<LV> getLVList() {
         return lvList;
     }
 
-    public ArrayList<PV> getPvList() {
+    public ArrayList<PV> getPVList() {
         return pvList;
     }
 
@@ -25,7 +25,7 @@ public class LVMStructureSaver {
         return hardDriveList;
     }
 
-    public ArrayList<VG> getVgList() {
+    public ArrayList<VG> getVGList() {
         return vgList;
     }
 
