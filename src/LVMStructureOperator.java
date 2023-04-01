@@ -177,7 +177,7 @@ public class LVMStructureOperator implements Serializable{
         }
         String[] allVGNames = new String[vgList.size()];
         for (int i = 0; i < vgList.size(); i++) {
-            allVGNames[i] = pvList.get(i).getName();
+            allVGNames[i] = vgList.get(i).getName();
         }
         if (!asList(allVGNames).contains(vgName)) {
             System.out.println("VG " + vgName + " does not exist");
@@ -238,30 +238,30 @@ public class LVMStructureOperator implements Serializable{
 
     public void loadData() {
         try {
-            FileInputStream readData = new FileInputStream("src/LVSaver");
-            ObjectInputStream readStream = new ObjectInputStream(readData);
+            FileInputStream readData;
+            ObjectInputStream readStream;
 
             if (new File("src/LVSaver").length() != 0) {
+                readData = new FileInputStream("src/LVSaver");
+                readStream = new ObjectInputStream(readData);
                 lvList = (ArrayList<LV>) readStream.readObject();
             }
 
-            readData = new FileInputStream("src/PVSaver");
-            readStream = new ObjectInputStream(readData);
-
             if (new File("src/PVSaver").length() != 0) {
+                readData = new FileInputStream("src/PVSaver");
+                readStream = new ObjectInputStream(readData);
                 pvList = (ArrayList<PV>) readStream.readObject();
             }
-            readData = new FileInputStream("src/DriveSaver");
-            readStream = new ObjectInputStream(readData);
 
             if (new File("src/DriveSaver").length() != 0) {
+                readData = new FileInputStream("src/DriveSaver");
+                readStream = new ObjectInputStream(readData);
                 hardDriveList = (ArrayList<HardDrive>) readStream.readObject();
             }
 
-            readData = new FileInputStream("src/VGSaver");
-            readStream = new ObjectInputStream(readData);
-
             if (new File("src/VGSaver").length() != 0) {
+                readData = new FileInputStream("src/VGSaver");
+                readStream = new ObjectInputStream(readData);
                 vgList = (ArrayList<VG>) readStream.readObject();
             }
 

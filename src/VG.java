@@ -48,7 +48,7 @@ public class VG extends StorageDeviceStructure {
     }
 
     public String toString() {
-        String info = super.getName() + ": total:[" + getTotalSpace() + "G] available:[" + getSpaceLeft() + "] [";
+        String info = super.getName() + ": total:[" + getTotalSpace() + "G] available:[" + getSpaceLeft() + "G] [";
         for (int i = 0; i < pvList.size(); i++) {
             info += pvList.get(i).getName();
             if (i != pvList.size()-1) {info += ",";}
