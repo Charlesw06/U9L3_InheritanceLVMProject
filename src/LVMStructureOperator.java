@@ -8,7 +8,7 @@ public class LVMStructureOperator implements Serializable{
     private ArrayList<LV> lvList;
     private ArrayList<PV> pvList;
     private ArrayList<HardDrive> hardDriveList;
-    private ArrayList<VG> vgList;
+    private static ArrayList<VG> vgList;
 
     public LVMStructureOperator() {
         lvList = new ArrayList<LV>();
@@ -29,7 +29,7 @@ public class LVMStructureOperator implements Serializable{
         return hardDriveList;
     }
 
-    public ArrayList<VG> getVGList() {
+    public static ArrayList<VG> getVGList() {
         return vgList;
     }
 
@@ -87,7 +87,7 @@ public class LVMStructureOperator implements Serializable{
 
     public void listPVs() {
         for (PV pv : pvList) {
-            System.out.println(pv);
+            System.out.println(pv.toString());
         }
     }
 
@@ -160,7 +160,7 @@ public class LVMStructureOperator implements Serializable{
 
     public void listVGs() {
         for (VG vg : vgList) {
-            System.out.println(vg);
+            System.out.println(vg.toString());
         }
     }
 
@@ -201,7 +201,7 @@ public class LVMStructureOperator implements Serializable{
 
     public void listLVs() {
         for (LV lv : lvList) {
-            System.out.println(lv);
+            System.out.println(lv.toString());
         }
     }
 

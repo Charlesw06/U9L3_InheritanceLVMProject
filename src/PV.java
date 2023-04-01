@@ -14,9 +14,9 @@ public class PV extends StorageDeviceStructure {
         return associatedDrive.getSize();
     }
 
-    public String toString(LVMStructureOperator operator) {
-        String info = super.getName() + ": [" + getName() + "G]";
-        for (VG vg : operator.getVGList()) {
+    public String toString() {
+        String info = super.getName() + ": [" + getSize() + "G]";
+        for (VG vg : LVMStructureOperator.getVGList()) {
             if (vg.getPVList().contains(this)) {
                 info += " [" + vg.getName() + "]";
             }
