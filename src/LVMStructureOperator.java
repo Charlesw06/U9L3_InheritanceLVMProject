@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.io.*;
 import static java.util.Arrays.asList;
+import java.io.IOException;
 
 public class LVMStructureOperator implements Serializable{
     private ArrayList<LV> lvList;

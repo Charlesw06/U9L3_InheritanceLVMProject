@@ -1,4 +1,4 @@
-public class StorageDeviceStructure {
+public class StorageDeviceStructure implements java.io.Serializable{
     private String name;
     private String uuid;
 

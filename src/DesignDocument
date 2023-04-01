@@ -150,5 +150,23 @@ public void listLVs()
 		prints out the information about every LV in LV list using toString()
 
 LVMRunner class - 
-
+    1. Import java.util.Scanner
+    2. Create new LVMOperater instance called o
+    3. Load data from save files using o.loadData
+    4. Create new Scanner instance called s and prompt user for commmand
+    5. Create String input based on user's input
+    6. Repeat steps 6 through 18 while input does not equal "exit"
+    7. Split input into different parts using split method and " " as regex
+    8. If input starts with "install-drive" call o.installDrive using elements from split input
+    9. If input starts with "list-drives" call o.listDrives
+    10. If input starts with "pvcreate" call o.createPV using elements from split input
+    11. If input starts with "pvlist" call o.listPVs
+    12. If input starts with "vgcreate" call o.createVG using elements from split input
+    13. If input starts with "vgextend" call o.extendVG using elements from split input
+    14. If input starts with "vglist" call o.listVGs
+    15. If input starts with "lvcreate" call o.createLV using elements from split input
+    16. If input starts with "lvlist" call o.listLVs
+    17. Prompt user for new input and set String input to user's input
+    18. Go back to step 6
+    19. Save LVM structure using o.saveData
 
