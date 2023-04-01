@@ -17,6 +17,6 @@ public class LV extends StorageDeviceStructure {
     }
 
     public String toString() {
-        return super.toString() + " " + size + " " + associatedVG;
+        return super.getName() + ": [" + size + "G] [" + associatedVG.getName() + "] [" + super.getUUID() + "]";
     }
 }

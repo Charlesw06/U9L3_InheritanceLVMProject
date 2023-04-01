@@ -19,6 +19,14 @@ public class VG extends StorageDeviceStructure {
         return lvList;
     }
 
+    public int getTotalSpace() {
+        int totalSpace = 0;
+        for (PV pv : pvList) {
+            totalSpace += pv.getSize();
+        }
+        return totalSpace;
+    }
+
     public int getUsedSpace() {
         int space = 0;
         for (LV lv : lvList) {
@@ -28,10 +36,23 @@ public class VG extends StorageDeviceStructure {
     }
 
     public int getSpaceLeft() {
-        int totalSpace = 0;
-        for (PV pv : pvList) {
-            totalSpace += pv.getSize();
+        return getTotalSpace() - getUsedSpace();
+    }
+
+    public void addPV(PV pv) {
+        pvList.add(pv);
+    }
+
+    public void addLV(LV lv) {
+        lvList.add(lv);
+    }
+
+    public String toString() {
+        String info = super.getName() + ": total:[" + getTotalSpace() + "G] available:[" + getSpaceLeft() + "] [";
+        for (int i = 0; i < pvList.size(); i++) {
+            info += pvList.get(i).getName();
+            if (i != pvList.size()-1) {info += ",";}
         }
-        return totalSpace - getUsedSpace();
+        return info + "] [" + super.getUUID() + "]";
     }
 }

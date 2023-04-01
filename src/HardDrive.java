@@ -9,4 +9,8 @@ public class HardDrive extends StorageDeviceStructure {
     public int getSize() {
         return size;
     }
+
+    public String toString() {
+        return super.getName() + " [" + size + "G] [" + super.getUUID() + "]";
+    }
 }

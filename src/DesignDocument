@@ -1,29 +1,154 @@
-LVM Runner Design Document -
+Logical Volume Management Design Document -
 
-LVMRunner:
-    import ArrayList;
-    import Scanner;
-    import FileWriter;
+StorageDeviceStructure class - 
+	private String name
+	private String uuid
+	
+	public StorageDeviceStructure(String name, String uuid)
+		initializes name and uuid instance variables
 
-    main method
-     - runs the lvm program and interface
-     - Stores VGs, LVs, HardDrives, and PVs, in separate arrayLists
+	public String getName() 
+		returns value in name instance variable
 
-    public void writeToFile (Object o)
-     - writes to certain file depending on type of data structure
-     - writes all information about the data structure in easily retrievable format
+	public String getUUID()
+		returns value in uuid instance variable
 
-    public HardDrive installDrive (String name, String size)
-     - creates drive depending on name, size, and randomly made UUID
-     - writes drive information into HardDriveSave using writeToFile method
-     - returns created HardDrive
+HardDrive class (extends StorageDeviceStructure) -
+	private int size
 
-    public PV createPV (String name, HardDrive associatedDrive)
-     - creates PV depending on name, associatedDrive, and randomly made UUID
-     - writes PV information into PVSave using writeToFile method
-     - returns created PV
+	public HardDrive(String name, String uuid, int size)
+		initializes super class using name and uuid
+        initializes and size instance variable
 
-    public VG createVG (String name, PV[] pvList, LV[] lvList)
-     - creates VG depending on name, pvList, lvList, and randomly made UUID
-     - writes VG information into VGSave using writeToFile method
-     - returns created VG
+	public int getSize()
+		returns value in size instance variable
+
+	public String toString()
+		returns String representing information about the hard drive
+
+LV class (extends StorageDeviceStructure) -
+	private int size
+	private VG associatedVG
+
+	public LV(String name, String uuid, int size, VG associatedVG) 
+		initializes super class using name and uuid
+		initializes size and associatedVG instance variables
+	
+	public int getSize()
+		returns value in size instance variable
+
+	public VG getAssociated VG()
+		returns value in associatedVG instance variable
+
+	public String toString()
+		returns string representing information about the LV
+
+VG class (extends StorageDeviceStructure) -
+	private ArrayList<PV> pvList
+	private ArrayList<LV> lvList
+
+	public VG(String name, String uuid, PV pv)
+		initializes super class using name and uuid
+		initializes pvList to ArrayList containing pv and lvList to empty ArrayList
+
+	public ArrayList<PV> getPVList()
+		returns value in pvList instance variable
+
+    public ArrayList<LV> getLVList()
+		returns value in lvList instance variable
+
+	public int getTotalSpace()
+		returns the total amount of space in the VG
+
+	public int getUsedSpace()
+		returns the amount of space in the VG
+	
+	public int getSpaceLeft()
+		returns the amount of space left in the VG
+
+	public void addPV(PV pv)
+		adds pv to the end of pvList
+	
+    public void addLV(LV lv)
+		adds lv to the end of lvList
+
+	public String toString()
+		returns string representing information about the VG
+
+PV class (extends StorageDeviceStructure) -
+	private HardDrive associatedDrive
+
+	public PV(String name, String uuid, HardDrive associatedDrive)
+		initializes super class using name and uuid
+		initializes associatedDrive instance variable using associatedDrive
+	
+	public HardDrive getAssociatedDrive()
+		returns value in associatedDrive instance variable
+
+	public int getSize()
+		returns size of the associatedDrive
+
+	public String toString(LMVOperator operator)
+		returns string representing information about the PV
+
+LVMStructureOperator - 
+    private ArrayList<LV> lvList;
+    private ArrayList<PV> pvList;
+    private ArrayList<HardDrive> hardDriveList;
+    private ArrayList<VG> vgList;
+
+    public LVMStructureSaver()
+    	initializes all instance variables to empty ArrayLists
+
+    public ArrayList<LV> getLVList()
+    	returns value in lvList instance variable
+
+    public ArrayList<PV> getPVList()
+    	returns value in pvList instance variable
+
+    public ArrayList<HardDrive> getHardDriveList()
+    	returns value in hardDriveList instance variable
+
+    public ArrayList<VG> getVGList()
+	    returns value in vgList instance variable
+
+	public void installDrive(String name, String size)
+		creates new HardDrive object based on parameters and generated UUID
+		adds new HardDrive to hardDriveList and reports if successful
+		reports error if a drive with same name exists
+
+	public void listDrives()
+		prints out the information about every HardDrive in hardDriveList using toString()
+	
+	public void createPV(String name, HardDrive drive)
+		creates new PV object based on parameters and generated UUID
+		adds new PV to pvList and reports if successful
+		reports error if PV with same name exists, drive is already assigned to a PV, or the drive does not exist
+
+	public void listPVs()
+		prints out the information about every PV in pvList using toString()
+
+	public void createVG(String name,  String pvName)
+		creates a new VG object based on the parameters and generated UUID
+		adds new VG to vgList and reports if successful
+		reports error if PV does not exist, VG with same name exists, or PV is part of another VG
+		
+	public void listVGs()
+		prints out the information about every VG in VG list using toString()
+
+	public void extendVG(String vgName, String pvName)
+		adds PV to the VG's private instance variable pvList using addPV()
+		reports error if the PV does not exist or is part of another VG
+
+	public createLV(String name, String size, String vg) 
+		creates new LV object based on parameters and generated UUID
+		adds new LV to lvList and reports if successful
+		adds new LV to VG private instance variable lvList using addLV()
+		reports error if LV with same name exists, VG does not have enough space, or VG does not exist
+
+public void listLVs()
+		prints out the information about every LV in LV list using toString()
+
+LVMRunner class - 
+
+
