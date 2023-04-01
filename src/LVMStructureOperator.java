@@ -241,22 +241,29 @@ public class LVMStructureOperator implements Serializable{
             FileInputStream readData = new FileInputStream("src/LVSaver");
             ObjectInputStream readStream = new ObjectInputStream(readData);
 
-            lvList = (ArrayList<LV>) readStream.readObject();
+            if (new File("src/LVSaver").length() != 0) {
+                lvList = (ArrayList<LV>) readStream.readObject();
+            }
 
             readData = new FileInputStream("src/PVSaver");
             readStream = new ObjectInputStream(readData);
 
-            pvList = (ArrayList<PV>) readStream.readObject();
-
+            if (new File("src/PVSaver").length() != 0) {
+                pvList = (ArrayList<PV>) readStream.readObject();
+            }
             readData = new FileInputStream("src/DriveSaver");
             readStream = new ObjectInputStream(readData);
 
-            hardDriveList = (ArrayList<HardDrive>) readStream.readObject();
+            if (new File("src/DriveSaver").length() != 0) {
+                hardDriveList = (ArrayList<HardDrive>) readStream.readObject();
+            }
 
             readData = new FileInputStream("src/VGSaver");
             readStream = new ObjectInputStream(readData);
 
-            vgList = (ArrayList<VG>) readStream.readObject();
+            if (new File("src/VGSaver").length() != 0) {
+                vgList = (ArrayList<VG>) readStream.readObject();
+            }
 
             System.out.println("Data loaded.");
         }
